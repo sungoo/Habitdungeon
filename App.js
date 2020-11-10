@@ -5,18 +5,16 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { FontAwesome5, FontAwesome, MaterialCommunityIcons } from "@expo/vector-icons";
-//import 'GestureScreen.js' from ''
 import { Drawer, Text, Button } from 'react-native-paper';
 import { LinearGradient } from 'expo-linear-gradient';
 import {Calendar, CalendarList, Agenda} from 'react-native-calendars';
 import Dialog from "react-native-dialog";
 import Modal from 'react-native-modal';
 import UserProfile from './src/compornent/UserProfile.js';
+//import TodoElement from './src/compornent/TodoElement.js';
 
 function MainPage({navigation}) {
-  const moveToInventory=()=>{
-    navigation.navigate("Inventory");
-  }
+  
   const moveToList=()=>{
     navigation.navigate("List");
   }
