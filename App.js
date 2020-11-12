@@ -160,8 +160,23 @@ class ListPage extends Component{
 
     this.state={
       visible_a: false,
-      isFightVisible: false
+      isFightVisible: false,
+      month : '',
+      date : '',
+      hp: 100,
+      exp: 0,
+      coin: 0
     };
+  }
+
+  componentDidMount(){
+    var that = this;
+    var month = new Date().getMonth()+1;
+    var date = new Date().getDate();
+    that.setState({
+      month: month,
+      date: date
+    });
   }
 
   // const [visible_a, setVisible]=useState(false);
@@ -174,11 +189,22 @@ class ListPage extends Component{
     this.setState({visible_a: false})
   }
   handleDelete(){
-    this.setState({visible_a: false})
+    this.setState({visible_a: false});
+    this.addHP(-10);
   }
 
   toggleFightVisible(visible){
     this.setState({isFightVisible: visible})
+  }
+
+  addHP(desc){
+    this.setState({hp:this.hp+desc})
+  }
+  addExp(desc){
+    this.setState({exp:this.exp+desc})
+  }
+  addCoin(desc){
+    this.setState({coin:this.coin+desc})
   }
 
   render(){
@@ -197,7 +223,7 @@ class ListPage extends Component{
         />
         <View style={styles.ImageScreen}>
           <View style={[styles.User, {zIndex:2}]}>
-            <UserProfile/>
+            <UserProfile hp={this.hp} exp={this.exp} coin={this.coin}/>
           </View>
           <Image
             style={{resizeMode:"contain", width:250, height:300, position:"relative", top:0, zIndex:1}}
@@ -217,8 +243,8 @@ class ListPage extends Component{
           />
           <Text style={{fontSize:24, color:'white', position:"absolute", top:23, right:70, zIndex:4}}>3/4</Text>
           <Text style={{fontSize:30, fontWeight:'bold', color:'white', position:"relative", top:-270, zIndex:4}}>
-            {"11"}{"\n"}
-            {"05"}
+            {this.state.month}{"\n"}
+            {this.state.date}
           </Text>
           <View style={{width:'100%', height:'100%', backgroundColor:'#22215B', top:-200}}/>
           <Image

@@ -4,7 +4,25 @@ import {StyleSheet, Text, View, Image, TouchableOpacity} from 'react-native';
 export default class UserProfile extends Component{
     constructor(props){
         super(props);
+
+        this.state={
+            hp: 100,
+            exp: 0,
+            coin: 0
+        }
     }
+    //useEffect 검색해서 사용해볼것
+    // componentDidUpdate(){
+    //     if(this.state.hp !== this.props.hp){
+    //         this.setState({hp:this.props.hp})
+    //     }
+    //     if(this.state.exp !== this.props.exp){
+    //         this.setState({exp:this.props.exp})
+    //     }
+    //     if(this.state.coin !== this.props.coin){
+    //         this.setState({coin:this.props.coin})
+    //     }
+    // }
 
     render(){
         return(
@@ -37,9 +55,9 @@ export default class UserProfile extends Component{
                     style={{resizeMode:"contain", width: 15, height: 15, position: "absolute", top: 72, left: 72, zIndex: 1}}
                     source={require("../../assets/drawable/Coin.png")}
                 />
-                <Text style={{fontSize: 15, color: 'white', position:"absolute", top: 28, left: 100, zIndex: 4}}>100 / 100</Text>
-                <Text style={{fontSize: 15, color: 'white', position:"absolute", top: 50, left: 80, zIndex: 4}}>60%</Text>
-                <Text style={{fontSize: 15, color: 'white', position:"absolute", top: 69, left: 89, zIndex: 4}}>1230</Text>
+                <Text style={{fontSize: 15, color: 'white', position:"absolute", top: 28, left: 100, zIndex: 4}}>{this.props.hp} / 100</Text>
+                <Text style={{fontSize: 15, color: 'white', position:"absolute", top: 50, left: 80, zIndex: 4}}>{this.props.exp}%</Text>
+                <Text style={{fontSize: 15, color: 'white', position:"absolute", top: 69, left: 89, zIndex: 4}}>{this.props.coin}</Text>
             </TouchableOpacity>
         );
     }
