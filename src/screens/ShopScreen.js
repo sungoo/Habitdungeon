@@ -1,5 +1,5 @@
-import React, {useState, useCallback, useEffect, Component} from 'react';
-import { StyleSheet, View, Image, ImageBackground, TouchableOpacity, TouchableHighlight, Dimensions, ScrollView, ScrollViewComponent} from 'react-native';
+import React, {useState, useEffect} from 'react';
+import { StyleSheet, View, Image, ImageBackground, TouchableOpacity, TouchableWithoutFeedback, TouchableHighlight, Dimensions, ScrollView} from 'react-native';
 import { Drawer, Text, Button } from 'react-native-paper';
 import { LinearGradient } from 'expo-linear-gradient';
 import Dialog from "react-native-dialog";
@@ -12,31 +12,59 @@ const User = (props) =>{
 //상점아저씨 말풍선
 const RandomDialog = (props)=>{
 
-    // let randial = [
-    //     '../../assets/drawable/Shop/Talkballoon1.png',
-    //     '../../assets/drawable/Shop/Talkballoon2.png',
-    //     '../../assets/drawable/Shop/Talkballoon3.png',
-    //     '../../assets/drawable/Shop/Talkballoon4.png'
-    // ]
-
-    let dial = '../../assets/drawable/Shop/Talkballoon1.png';
-    // let dial2 = '../../assets/drawable/Shop/Talkballoon2.png';
-
-    // const change=()=>{
-    //     dial = dial2;
-    // }
-
     return(
         <Image
             resizeMode='contain'
-            style={{width:200, height:80, top:70, left:80, position:'absolute'}}
-            source={require(dial)}
+            style={{width:200, height:80, position:'absolute'}}
+            source={props.dial}
         />
     );
 }
 
 //샵 전경
 const ShopView=(props)=>{
+
+    const randial = {
+        basic : require('../../assets/drawable/Shop/Talkballoon1.png'),
+        murmur : require('../../assets/drawable/Shop/Talkballoon2.png'),
+        thankToBuy : require('../../assets/drawable/Shop/Talkballoon3.png'),
+        boast : require('../../assets/drawable/Shop/Talkballoon4.png')
+    }
+
+    const [dial, setDial] = useState(randial.basic);
+
+    const randomchange = ()=>{
+        let ran = Math.random()*3;
+        console.log(ran);
+
+        switch(Math.floor(ran)){
+            case 0:
+                setDial(randial.basic);
+                break;
+            case 1:
+                setDial(randial.murmur);
+                break;
+            case 2:
+                setDial(randial.boast);
+                break;
+            default:
+                break;
+        }
+    }
+
+    const ToBasic = ()=>{
+        setDial(randial.basic);
+    }
+    const ToMurMur = ()=>{
+        setDial(randial.murmur);
+    }
+    const ToThank = () =>{
+        setDial(randial.thankToBuy);
+    }
+    const ToBoast = ()=>{
+        setDial(randial.boast);
+    }
+
     return(
         <View style={{alignItems:'center'}}>
             <Image
@@ -56,12 +84,16 @@ const ShopView=(props)=>{
                     style={{width:'100%', height:'100%',}}
                 />
             </View>
-            <Image
-                resizeMode={"contain"}
-                style={[styles.shopKeeper, {position:'absolute'}]}
-                source={require("../../assets/drawable/gif/shopkeeper.gif")}
-            />
-            <RandomDialog/>
+            <TouchableWithoutFeedback onPress={randomchange}>
+                <Image
+                    resizeMode={"contain"}
+                    style={[styles.shopKeeper, {position:'absolute'}]}
+                    source={require("../../assets/drawable/gif/shopkeeper.gif")}
+                />
+            </TouchableWithoutFeedback>
+            <View style={{bottom:130, left:10}}>
+                <RandomDialog dial={dial}/>
+            </View>
         </View>
     );
 }
@@ -73,44 +105,64 @@ const Fitting = (props)=>{
     return(
         <View style={{alignItems:'center'}}>
             <Image
-                resizeMode={"contain"}
+                imageStyle={{resizeMode: 'contain'}}
                 style={{width:100, height:125, top:20, right:100}}
                 source={require("../../assets/drawable/gif/player_idle.gif")}
             />
             <ImageBackground
-                resizeMode={"contain"}
+                imageStyle={{resizeMode: 'contain'}}
                 style={{width:50, height:50, top:20, right:30, position:'absolute'}}
                 source={require("../../assets/drawable/Shop/Box_equiped.png")}
             >
 
             </ImageBackground>
             <ImageBackground
-                resizeMode={"contain"}
+                imageStyle={{resizeMode: 'contain'}}
                 style={{width:50, height:50, top:20, left:70, position:'absolute'}}
                 source={require("../../assets/drawable/Shop/Box_equiped.png")}
             >
                 
             </ImageBackground>
             <ImageBackground
-                resizeMode={"contain"}
+                imageStyle={{resizeMode: 'contain'}}
                 style={{width:50, height:50, top:20, left:120, position:'absolute'}}
                 source={require("../../assets/drawable/Shop/Box_equiped.png")}
             >
             
             </ImageBackground>
             <ImageBackground
-                resizeMode={"contain"}
+                imageStyle={{resizeMode: 'contain'}}
                 style={{width:50, height:50, top:20, left:170, position:'absolute'}}
                 source={require("../../assets/drawable/Shop/Box_equiped.png")}
             >
             
             </ImageBackground>
             <View style={{left:20}}>
-                <Text style={{color:'#35C4E3', fontSize:20, bottom:50}}>BUFF</Text>
-                <Text style={{fontSize:10, bottom:50}}>희귀 아이템 등장확률 : </Text>
-                <Text style={{fontSize:10, bottom:50}}>체력 매일 자동회복률 : </Text>
-                <Text style={{fontSize:10, bottom:50}}>경험치 획득 보너스 : </Text>
+                <Text key={Math.random().toString()} style={{color:'#35C4E3', fontSize:20, bottom:50}}>BUFF</Text>
+                <Text key={Math.random().toString()} style={{fontSize:10, bottom:50}}>희귀 아이템 등장확률 : </Text>
+                <Text key={Math.random().toString()} style={{fontSize:10, bottom:50}}>체력 매일 자동회복률 : </Text>
+                <Text key={Math.random().toString()} style={{fontSize:10, bottom:50}}>경험치 획득 보너스 : </Text>
             </View>
+        </View>
+    );
+}
+
+const Item = (props)=>{
+
+    console.log(props.imagePath);
+    
+    //const img = require(props.imagePath);
+
+    return(
+        <View style={styles.listItems}>
+            <TouchableOpacity>
+                <ImageBackground
+                    style={{flex:1, width:'100%', height:'100%'}}
+                    source={require("../../assets/box_equiped.png")}
+                >
+
+                </ImageBackground>
+            </TouchableOpacity>
         </View>
     );
 }
@@ -119,18 +171,9 @@ const HairList = (props)=>{
 
 
     return(
-        <ScrollViewComponent horizontal={false} style={{width:Dimensions.get('window').width,}}>
-            <View style={styles.listItems}>
-                <TouchableOpacity>
-                    <ImageBackground
-                        resizeMode={'contain'}
-                        source={require("../../assets/drawable/Shop/Box_item.png")}
-                    >
-
-                    </ImageBackground>
-                </TouchableOpacity>
-            </View>
-        </ScrollViewComponent>
+        <ScrollView horizontal={false} style={styles.scroll}>
+            <Item imagePath="../../assets/box_equiped.png"/>
+        </ScrollView>
     );
 }
 
@@ -171,7 +214,7 @@ const ItemList = (props)=>{
                 </TouchableOpacity>
             </View>
             <View>
-                
+                <HairList/>
             </View>
         </View>
         
@@ -250,7 +293,12 @@ const styles = StyleSheet.create({
         width:150, 
         height:45,
     },
+    scroll:{
+        flex:1,
+        
+    },
     listItems:{
+        flex:1,
         flexDirection:'row',
         flexWrap:'wrap',
         justifyContent: 'space-between',

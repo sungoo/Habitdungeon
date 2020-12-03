@@ -1,7 +1,6 @@
 import React, {Component, useCallback, useEffect, useState} from 'react';
 import {StyleSheet, Text, View, Image, TouchableOpacity, Easing} from 'react-native';
 import ProgressBar from 'react-native-progress/Bar';
-import PropTypes from 'prop-types';
 
 const UserProfile = (props)=>{
 
@@ -70,17 +69,6 @@ const UserProfile = (props)=>{
             <Text style={{fontSize: 15, color: 'white', position:"absolute", top: 69, left: 89, zIndex: 4}}>{props.coin}</Text>
         </TouchableOpacity>
     );
-}
-
-UserProfile.PropTypes={
-    hp:PropTypes.number.isRequired,
-    exp:PropTypes.number.isRequired,
-    coin:PropTypes.number.isRequired,
-}
-UserProfile.defaultProps={
-    hp:100,
-    exp:0,
-    coin:0,
 }
 
 export default UserProfile;

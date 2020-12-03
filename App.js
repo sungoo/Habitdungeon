@@ -9,7 +9,7 @@ import { Drawer, Text, Button } from 'react-native-paper';
 import { LinearGradient } from 'expo-linear-gradient';
 import {Calendar, CalendarList, Agenda} from 'react-native-calendars';
 import UserProfile from './src/compornent/UserProfile.js';
-//import ListPage from './src/screens/ListScreen';
+import ListPage from './src/screens/ListScreen';
 import ShopPage from './src/screens/ShopScreen';
 import Dimensions from 'react-dimensions'
 //import JSTestScreen from  './src/screens/JSTestScreen';
@@ -156,10 +156,10 @@ function App(){
               iconName = 'dungeon'
               return<FontAwesome5 name={iconName} size={size} color={color}/>;
             }
-            // else if(route.name === 'List'){
-            //   iconName = 'emoticon-devil'
-            //   return<MaterialCommunityIcons name={iconName} size={size} color={color}/>;
-            // }
+            else if(route.name === 'List'){
+              iconName = 'emoticon-devil'
+              return<MaterialCommunityIcons name={iconName} size={size} color={color}/>;
+            }
             else if(route.name === 'Inventory'){
               iconName = 'bag-personal'
               return<MaterialCommunityIcons name={iconName} size={size} color={color}/>;
@@ -179,7 +179,7 @@ function App(){
         }}
       >
         <Bottom.Screen name="Main" component={MainPage}/>
-        {/* <Bottom.Screen name="List" component={ListPage}/> */}
+        <Bottom.Screen name="List" component={ListPage}/>
         <Bottom.Screen name="Inventory" component={InventoryPage}/>
         <Bottom.Screen name="Shop" component={ShopPage}/>
       </Bottom.Navigator>

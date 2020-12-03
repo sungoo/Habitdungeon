@@ -4,7 +4,6 @@ import { Drawer, Text, Button } from 'react-native-paper';
 import { LinearGradient } from 'expo-linear-gradient';
 import Dialog from "react-native-dialog";
 import Modal from 'react-native-modal';
-import PropTypes from 'prop-types';
 import Dimensions from 'react-dimensions'
 import ProgressBar from 'react-native-progress/Bar';
 import UserProfile from '../compornent/UserProfile.js';
@@ -96,14 +95,6 @@ const TodoElement=(props)=>{
     );
 }
 
-TodoElement.PropTypes={
-  id:PropTypes.number.isRequired,
-  title:PropTypes.string,
-  dueM:PropTypes.number.isRequired,
-  dueD:PropTypes.number.isRequired,
-  Active:PropTypes.bool,
-}
-
 const CurrentDate=(props)=>{
   return(
     <View style={{flex:1}}>
@@ -178,7 +169,7 @@ const Combat=()=>{
   );
 }
 
-const ListPage=(props)=>{
+const ListPageInorder=(props)=>{
 
   const [visible_a, setVisible] = useState(false);
   const [isFightVisible, setFightVisible] = useState(false);
@@ -333,6 +324,14 @@ const ListPage=(props)=>{
   
 }
 
+const ListPage = ()=>{
+  return(
+    <View style={styles.main}>
+      <Text>In order now..</Text>
+    </View>
+  )
+}
+
 export default ListPage;
 
 const styles = StyleSheet.create({
@@ -341,7 +340,7 @@ const styles = StyleSheet.create({
       flex: 1,
       backgroundColor: '#534B88',
       alignItems: 'center',
-      justifyContent: 'flex-end'
+      justifyContent: 'flex-start'
     },
     User: {
       position:"absolute", 
