@@ -52,19 +52,6 @@ const ShopView=(props)=>{
         }
     }
 
-    const ToBasic = ()=>{
-        setDial(randial.basic);
-    }
-    const ToMurMur = ()=>{
-        setDial(randial.murmur);
-    }
-    const ToThank = () =>{
-        setDial(randial.thankToBuy);
-    }
-    const ToBoast = ()=>{
-        setDial(randial.boast);
-    }
-
     return(
         <View style={{alignItems:'center'}}>
             <Image
@@ -177,40 +164,82 @@ const HairList = (props)=>{
     );
 }
 
+const CatalogButton = (props)=>{
+
+    return(
+        <Image
+            resizeMode='contain'
+            style={[styles.listButton]}
+            source={props.catalog}
+        />
+    );
+}
+
 //아이템 목록
 const ItemList = (props)=>{
 
+    const Catalog = {
+        hair:require("../../assets/drawable/Shop/Menu_hair.png"),
+        hat:require("../../assets/drawable/Shop/Menu_hat.png"),
+        cloth:require("../../assets/drawable/Shop/Menu_cloth.png"),
+        weapon:require("../../assets/drawable/Shop/Menu_weapon.png"),
+
+        hairSelect:require("../../assets/drawable/Shop/Menu_hair_selected.png"),
+        hatSelect:require("../../assets/drawable/Shop/Menu_hat_selected.png"),
+        clothSelect:require("../../assets/drawable/Shop/Menu_cloth_selected.png"),
+        weaponSelect:require("../../assets/drawable/Shop/Menu_weapon_selected.png"),
+    }
+
+    const [hair,selectHair] = useState(Catalog.hairSelect);
+    const [hat,selectHat] = useState(Catalog.hat);
+    const [cloth,selectCloth] = useState(Catalog.cloth);
+    const [weapon,selectWeapon] = useState(Catalog.weapon);
+
+    let selected = 1;
+
+    const togleHair = () =>{
+        selected = 1;
+        selectHair(Catalog.hairSelect);
+        selectHat(Catalog.hat);
+        selectCloth(Catalog.cloth);
+        selectWeapon(Catalog.weapon);
+    }
+    const togleHat = () =>{
+        selected = 2;
+        selectHair(Catalog.hair);
+        selectHat(Catalog.hatSelect);
+        selectCloth(Catalog.cloth);
+        selectWeapon(Catalog.weapon);
+    }
+    const togleCloth = () =>{
+        selected = 3;
+        selectHair(Catalog.hair);
+        selectHat(Catalog.hat);
+        selectCloth(Catalog.clothSelect);
+        selectWeapon(Catalog.weapon);
+    }
+    const togleWeapon = () =>{
+        selected = 4;
+        selectHair(Catalog.hair);
+        selectHat(Catalog.hat);
+        selectCloth(Catalog.cloth);
+        selectWeapon(Catalog.weaponSelect);
+    }
 
     return(
         <View>
             <View>
-                <TouchableOpacity style={{right:150}}>
-                    <Image
-                        resizeMode={'contain'}
-                        style={[styles.listButton]}
-                        source={require("../../assets/drawable/Shop/Menu_hair.png")}
-                    />
+                <TouchableOpacity style={{right:150}} onPress={togleHair}>
+                    <CatalogButton catalog={hair}/>
                 </TouchableOpacity>
-                <TouchableOpacity style={{position:'absolute', right:50}}>
-                    <Image
-                        resizeMode={'contain'}
-                        style={[styles.listButton]}
-                        source={require("../../assets/drawable/Shop/Menu_hat.png")}
-                    />
+                <TouchableOpacity style={{position:'absolute', right:50}} onPress={togleHat}>
+                    <CatalogButton catalog={hat}/>
                 </TouchableOpacity>
-                <TouchableOpacity style={{position:'absolute', left:50}}>
-                    <Image
-                        resizeMode={'contain'}
-                        style={[styles.listButton]}
-                        source={require("../../assets/drawable/Shop/Menu_cloth.png")}
-                    />
+                <TouchableOpacity style={{position:'absolute', left:50}} onPress={togleCloth}>
+                    <CatalogButton catalog={cloth}/>
                 </TouchableOpacity>
-                <TouchableOpacity style={{position:'absolute', left:150}}>
-                    <Image
-                        resizeMode={'contain'}
-                        style={[styles.listButton]}
-                        source={require("../../assets/drawable/Shop/Menu_weapon.png")}
-                    />
+                <TouchableOpacity style={{position:'absolute', left:150}} onPress={togleWeapon}>
+                    <CatalogButton catalog={weapon}/>
                 </TouchableOpacity>
             </View>
             <View>
