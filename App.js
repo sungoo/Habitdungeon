@@ -11,17 +11,30 @@ import {Calendar, CalendarList, Agenda} from 'react-native-calendars';
 import UserProfile from './src/compornent/UserProfile.js';
 import ListPage from './src/screens/ListScreen';
 import ShopPage from './src/screens/ShopScreen';
-import Dimensions from 'react-dimensions'
+import Dimensions from 'react-dimensions';
 //import JSTestScreen from  './src/screens/JSTestScreen';
 //import TodoElement from './src/compornent/TodoElement.js';
+import Settings from './src/compornent/Settings';
 
-function MainPage({navigation}){
+const MainPage=({navigation}, props)=>{
   
   const moveToList=()=>{
     navigation.navigate("List");
   }
 
-  //const [active, setActive] = React.useState('');
+  const [hp,setHP] = useState(100);
+  const [exp,setEXP] = useState(0);
+  const [coin,setCoin] = useState(200);
+
+  console.log("main",hp,exp,coin);
+
+  const [visible, setVis]=useState(false);
+  const toggleVis=()=>{
+      setVis(!visible);
+  }
+
+  console.log(visible);
+
   return (
     <View style={styles.main}>
       <LinearGradient
@@ -36,7 +49,19 @@ function MainPage({navigation}){
           }}
       />
       <View style={styles.User}>
-        <UserProfile/>
+        <UserProfile setHP={setHP} setEXP={setEXP} setCoin={setCoin}
+                    hp={hp} exp={exp} coin={coin}/>
+        <TouchableOpacity 
+            style={{position:'absolute', top:20, left:350}}
+            onPress={toggleVis}
+        >
+            <Image
+                resizeMode='contain'
+                style={{width:50, height:50}}
+                source={require('./assets/drawable/Icon_cog_dark.png')}
+            />
+        </TouchableOpacity>
+        <Settings setVis={setVis} visible={visible}/>
       </View>
       <TouchableOpacity>
         <Image

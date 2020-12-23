@@ -4,9 +4,20 @@ import { Drawer, Text, Button } from 'react-native-paper';
 import { LinearGradient } from 'expo-linear-gradient';
 import Dialog from "react-native-dialog";
 import Modal from 'react-native-modal';
+import UserProfile from '../compornent/UserProfile';
+import Settings from '../compornent/Settings';
 
 const User = (props) =>{
+    const [hp,setHP] = useState(100);
+    const [exp,setEXP] = useState(0);
+    const [coin,setCoin] = useState(200);
 
+    console.log("shop user",hp,exp,coin);
+
+    return(
+        <UserProfile setHP={setHP} setEXP={setEXP} setCoin={setCoin}
+                    hp={hp} exp={exp} coin={coin}/>
+    );
 }
 
 //상점아저씨 말풍선
@@ -136,21 +147,15 @@ const Fitting = (props)=>{
 
 const Item = (props)=>{
 
-    console.log(props.imagePath);
-    
-    //const img = require(props.imagePath);
-
     return(
-        <View style={styles.listItems}>
-            <TouchableOpacity>
-                <ImageBackground
-                    style={{flex:1, width:'100%', height:'100%'}}
-                    source={require("../../assets/box_equiped.png")}
-                >
+        <TouchableOpacity>
+            <ImageBackground
+                style={{flex:1, width:'100%', height:'100%'}}
+                source={require("../../assets/drawable/Shop/Box_item.png")}
+            >
 
-                </ImageBackground>
-            </TouchableOpacity>
-        </View>
+            </ImageBackground>
+        </TouchableOpacity>
     );
 }
 
@@ -158,9 +163,10 @@ const HairList = (props)=>{
 
 
     return(
-        <ScrollView horizontal={false} style={styles.scroll}>
-            <Item imagePath="../../assets/box_equiped.png"/>
-        </ScrollView>
+        // <ScrollView horizontal={false} style={styles.scroll}>
+        //     <Item imagePath="../../assets/box_equiped.png"/>
+        // </ScrollView>
+        <Item/>
     );
 }
 
@@ -175,6 +181,12 @@ const CatalogButton = (props)=>{
     );
 }
 
+const BuffFlavor = (props)=>
+{
+    return(
+        <Text style={{color:'#35C4E3'}}>{props.flavor}</Text>
+    )
+}
 //아이템 목록
 const ItemList = (props)=>{
 
@@ -188,12 +200,21 @@ const ItemList = (props)=>{
         hatSelect:require("../../assets/drawable/Shop/Menu_hat_selected.png"),
         clothSelect:require("../../assets/drawable/Shop/Menu_cloth_selected.png"),
         weaponSelect:require("../../assets/drawable/Shop/Menu_weapon_selected.png"),
-    }
+    };
+
+    const Flavor = {
+        hair:"머리 : 경험치 획득량 증가 %",
+        hat:"모자 : 희귀 아이템 등장확률 %",
+        cloth:"옷 : 체력 자동회복 %",
+        weapon:"무기 : 경험치 획득량 증가 %"
+    };
 
     const [hair,selectHair] = useState(Catalog.hairSelect);
     const [hat,selectHat] = useState(Catalog.hat);
     const [cloth,selectCloth] = useState(Catalog.cloth);
     const [weapon,selectWeapon] = useState(Catalog.weapon);
+
+    const [buff,setbuff]=useState(Flavor.hair);
 
     let selected = 1;
 
@@ -203,6 +224,7 @@ const ItemList = (props)=>{
         selectHat(Catalog.hat);
         selectCloth(Catalog.cloth);
         selectWeapon(Catalog.weapon);
+        setbuff(Flavor.hair);
     }
     const togleHat = () =>{
         selected = 2;
@@ -210,6 +232,7 @@ const ItemList = (props)=>{
         selectHat(Catalog.hatSelect);
         selectCloth(Catalog.cloth);
         selectWeapon(Catalog.weapon);
+        setbuff(Flavor.hat);
     }
     const togleCloth = () =>{
         selected = 3;
@@ -217,6 +240,7 @@ const ItemList = (props)=>{
         selectHat(Catalog.hat);
         selectCloth(Catalog.clothSelect);
         selectWeapon(Catalog.weapon);
+        setbuff(Flavor.cloth);
     }
     const togleWeapon = () =>{
         selected = 4;
@@ -224,6 +248,7 @@ const ItemList = (props)=>{
         selectHat(Catalog.hat);
         selectCloth(Catalog.cloth);
         selectWeapon(Catalog.weaponSelect);
+        setbuff(Flavor.weapon);
     }
 
     return(
@@ -243,6 +268,9 @@ const ItemList = (props)=>{
                 </TouchableOpacity>
             </View>
             <View>
+                <BuffFlavor flavor={buff}/>
+            </View>
+            <View>
                 <HairList/>
             </View>
         </View>
@@ -252,7 +280,12 @@ const ItemList = (props)=>{
 
 const ShopPage=(props)=>{
     
-
+    const [visible, setVis]=useState(false);
+    console.log("shop",visible);
+    const toggleVis=()=>{
+        setVis(!visible);
+        console.log("toggleshop",visible)
+    }
     return(
         <View style={styles.main}>
             <LinearGradient
@@ -260,6 +293,20 @@ const ShopPage=(props)=>{
                 colors={['#455E9F', '#2C2673']}
                 style={styles.liner}
             >
+                <View style={{right:146}}>
+                    <User/>
+                    <TouchableOpacity 
+                        style={{position:'absolute', top:20, left:350}}
+                        onPress={toggleVis}
+                    >
+                        <Image
+                            resizeMode='contain'
+                            style={{width:50, height:50}}
+                            source={require('../../assets/drawable/Icon_cog_dark.png')}
+                        />
+                    </TouchableOpacity>
+                    <Settings setVis={setVis} visible={visible}/>
+                </View>
                 <ShopView/>
                 <View
                     style={styles.feetingNList}

@@ -4,35 +4,9 @@ import ProgressBar from 'react-native-progress/Bar';
 
 const UserProfile = (props)=>{
 
-    const [hp, setHP] = useState(100);
-    const [exp, setEXP] = useState(0);
     const [level, setLV] = useState(1);
-    const [coin, setCoin] = useState(0);
-
-    useEffect(()=>{
-        console.log(hp);
-        console.log(exp);
-        console.log(level);
-        console.log(coin);
-    },[]);
- 
-    const hpDrop = useEffect(()=>{
-        setHP((hp)=> hp-12);
-    }, [props.hp]);
-
-    const expUP = useEffect(()=>{
-        if(exp > 100){
-            setEXP(0);
-            setLV(level+1);
-        }
-        else{
-            setEXP((exp)=> exp+8);
-        }
-    }, [props.exp]);
-
-    const CoinGain = useEffect(()=>{
-        setCoin((coin)=>coin+12);
-    }, [props.coin]);
+    
+    console.log("profile",props.hp, props.exp, props.coin);
 
     return(
         <TouchableOpacity>
@@ -43,7 +17,7 @@ const UserProfile = (props)=>{
             <View
                 style={{top: 30, left: 70, zIndex: 2, width: 120, height: 20}}
             >
-                <ProgressBar progress={hp/100} width={120} height={20}
+                <ProgressBar progress={props.hp/100} width={120} height={20}
                 color="red" unfilledColor="rgba(0, 0, 0, 0.4)" borderWidth={0}
                 borderRadius={10}
                 />
@@ -55,7 +29,7 @@ const UserProfile = (props)=>{
             <View
                 style={{width: 60, height: 12, top: 35, left: 67, zIndex: 2}}
             >
-                <ProgressBar progress={exp/100} width={60} height={12}
+                <ProgressBar progress={props.exp/100} width={60} height={12}
                 color="#6de9bc" unfilledColor="rgba(0, 0, 0, 0.4)" borderWidth={0}
                 borderRadius={10}
                 />
